@@ -31,10 +31,12 @@
   },
   "homepage": "https://github.com/xotahal/react-native-material-ui",
   "peerDependencies": {
-    "react-native-vector-icons": "^4.0.0"
+    "react-native-vector-icons": "^4.0.0",
+    "expo": "^15.1.3"
   },
   "dependencies": {
     "color": "^1.0.3",
+    "expo": "^15.1.3",
     "lodash.merge": "^4.0.0",
     "react-native-material-design-styles": "^0.2.6"
   },
