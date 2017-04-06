@@ -23,7 +23,7 @@ class Icon extends PureComponent {
         const iconSize = size || spacing.iconSize;
 
         return (
-            <VectorIcon
+            <MaterialIcons
                 name={name}
                 size={iconSize}
                 color={iconColor}
