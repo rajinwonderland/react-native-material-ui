@@ -7,7 +7,7 @@ import merge from 'lodash.merge';
 
 import { fontWeight } from './typography';
 import {
-  black, grey100, grey500, white, transparent,
+  black, grey100, grey500, white, transparent, snackbarColor,
 } from './colors';
 
 import lightTheme from './themes/light';
@@ -154,17 +154,25 @@ export default function getTheme(theme, ...more) {
             },
         }, theme.button)),
         buttonFlat: StyleSheet.create(merge({}, theme.buttonFlat)),
+        buttonDisabled: StyleSheet.create(merge({
+            text: {
+                color: palette.disabledTextColor,
+            },
+        }, theme.buttonDisabled)),
         buttonRaised: StyleSheet.create(merge({
             container: {
                 backgroundColor: '#fff',
                 borderColor: 'rgba(0,0,0,.12)',
             },
         }, theme.buttonRaised)),
-        buttonDisabled: StyleSheet.create(merge({
+        buttonRaisedDisabled: StyleSheet.create(merge({
+            container: {
+                backgroundColor: palette.borderColor,
+            },
             text: {
                 color: palette.disabledTextColor,
             },
-        }, theme.buttonDisabled)),
+        }, theme.buttonRaisedDisabled)),
         bottomNavigation: StyleSheet.create(merge({
             container: {
                 flexDirection: 'row',
@@ -173,6 +181,7 @@ export default function getTheme(theme, ...more) {
                 borderTopColor: palette.borderColor,
                 borderTopWidth: StyleSheet.hairlineWidth,
                 ...getPlatformElevation(8),
+                zIndex: 8,
             },
         }, theme.bottomNavigation)),
         bottomNavigationAction: StyleSheet.create(merge({
@@ -218,10 +227,10 @@ export default function getTheme(theme, ...more) {
                 ...getPlatformElevation(24),
                 width: 280,
                 paddingTop: 24,
-                paddingHorizontal: 24,
             },
             titleContainer: {
                 paddingBottom: 20,
+                paddingHorizontal: 24,
             },
             titleText: {
                 fontFamily,
@@ -231,18 +240,19 @@ export default function getTheme(theme, ...more) {
             },
             contentContainer: {
                 paddingBottom: 24,
+                paddingHorizontal: 24,
             },
-            // TODO: merge actionsContainer with actionsInnerContainer
             actionsContainer: {
-                height: 56,
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-            },
-            actionsInnerContainer: {
-                margin: 8,
             },
             defaultActionsContainer: {
+                marginHorizontal: 8,
+                height: 52,
                 flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+            },
+            stackedActionsContainer: {
+                marginBottom: 8,
             },
         }, theme.dialog)),
         checkbox: StyleSheet.create(merge({
@@ -406,6 +416,8 @@ export default function getTheme(theme, ...more) {
             },
             rightElementContainer: {
                 paddingRight: 4,
+                flexDirection: 'row',
+                backgroundColor: 'transparent',
             },
             leftElement: {
                 margin: 16,
@@ -415,6 +427,32 @@ export default function getTheme(theme, ...more) {
                 color: palette.secondaryTextColor,
             },
         }, theme.listItem)),
+        // https://material.io/guidelines/components/snackbars-toasts.html
+        snackbar: StyleSheet.create(merge({
+            container: {
+                flexDirection: 'row',
+                height: spacing.snackbarHeight,
+                alignItems: 'center',
+                backgroundColor: snackbarColor,
+                paddingHorizontal: 24,
+                ...getPlatformElevation(4),
+                zIndex: 4,
+            },
+            message: {
+                flex: 1,
+                marginVertical: 14,
+                color: white,
+                ...typography.body2,
+                lineHeight: 14,
+            },
+            actionContainer: {
+                height: 14,
+                paddingHorizontal: 0,
+            },
+            actionText: {
+                color: palette.primaryColor,
+            },
+        }, theme.snackbar)),
         // https://material.google.com/components/subheaders.html#
         subheader: StyleSheet.create(merge({
             container: {
@@ -437,7 +475,9 @@ export default function getTheme(theme, ...more) {
                 overflow: 'hidden',
                 ...getPlatformElevation(4),
             },
-            leftElementContainer: { },
+            leftElementContainer: {
+                backgroundColor: 'transparent',
+            },
             leftElement: {
                 color: palette.alternateTextColor,
             },
@@ -452,6 +492,7 @@ export default function getTheme(theme, ...more) {
             },
             rightElementContainer: {
                 flexDirection: 'row',
+                backgroundColor: 'transparent',
             },
             rightElement: {
                 color: palette.alternateTextColor,

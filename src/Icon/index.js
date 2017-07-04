@@ -1,13 +1,13 @@
 /* eslint-disable import/no-unresolved, import/extensions */
-import {MaterialIcons} from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import React, { PureComponent, PropTypes } from 'react';
-/* eslint-enable import/no-unresolved, import/extensions */
-
+import getIconType from './helpers';
 const propTypes = {
     name: PropTypes.string.isRequired,
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     size: PropTypes.number,
     color: PropTypes.string,
+    type: PropTypes.string
 };
 const defaultProps = { };
 const contextTypes = {
@@ -16,14 +16,18 @@ const contextTypes = {
 
 class Icon extends PureComponent {
     render() {
-        const { name, style, size, color } = this.props;
+        const { name, style, size, color, type } = this.props;
         const { palette, spacing } = this.context.uiTheme;
-
+        let Icon;
+        if (!type) {
+          Icon = getIconType('material');
+        } else {
+          Icon = getIconType(type);
+        }
         const iconColor = color || palette.secondaryTextColor;
         const iconSize = size || spacing.iconSize;
-
         return (
-            <MaterialIcons
+            <Icon
                 name={name}
                 size={iconSize}
                 color={iconColor}
